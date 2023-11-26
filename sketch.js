@@ -3,7 +3,7 @@ let cameraX = 0;
 let cameraY = 0;
 let cameraZ = 200;
 let speed = 5;
-let cameraSpeed= 10
+let cameraSpeed = 10;
 let sprintSpeed = 20;
 let bobAmount = 2;
 let movingForward = false;
@@ -39,19 +39,13 @@ let targetAngle2 = 0;
 let rotationSpeedf = 0.05; // Adjust this value for the animation speed
 let frontTexture;
 let backTexture;
-let h = 0
+let h = 0;
 let animateText = false;
 let animateText2 = false;
 let animateText3 = false;
 let animateText4 = false;
 let animateText5 = false;
 let animateText6 = false;
-
-
-
-
-
-
 
 // Variables for the abstract forms
 let rotationAngle = 0;
@@ -64,56 +58,62 @@ let lookAtY = -200;
 let lookAtZ = 0;
 
 function preload() {
-  img = loadImage('IMG-2277.JPG');
-  font = loadFont('Txt Regular.ttf');
-   for (let i = 0; i < 5; i++) {
-    verticalImagesBack.push(loadImage('IMG-2277.JPG'));
+  img = loadImage("IMG-2277.JPG");
+  font = loadFont("Txt Regular.ttf");
+  for (let i = 0; i < 5; i++) {
+    verticalImagesBack.push(loadImage("IMG-2277.JPG"));
   }
-  frontTexture = loadImage('frame.png'); // Replace 'front_texture.jpg' with your front texture image file
-  backTexture = loadImage('hippie-flowers-jeff-hobrath.jpg'); // Replace 'back_texture.jpg' with your back texture image file
-
+  frontTexture = loadImage("frame.png"); // Replace 'front_texture.jpg' with your front texture image file
+  backTexture = loadImage("hippie-flowers-jeff-hobrath.jpg"); // Replace 'back_texture.jpg' with your back texture image file
 }
-
-
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   addScreenPositionFunction();
   cam = createCamera();
-  camZ = 200;// Set the pitch limit to 60 degrees
-    cam.setPosition(camX, -200, camZ);
+  camZ = 200; // Set the pitch limit to 60 degrees
+  cam.setPosition(camX, -200, camZ);
   cam.lookAt(0, -200, 0);
   mouseXPrev = mouseX;
-    for (let i = 0; i < 5; i++) {
-    verticalImagesFront.push(loadImage('hippie-flowers-jeff-hobrath.jpg'));
+  for (let i = 0; i < 5; i++) {
+    verticalImagesFront.push(loadImage("hippie-flowers-jeff-hobrath.jpg"));
   }
 
   text3D = new ClickableText("welcome", -70, -200, -400);
   text3D2 = new ClickableText("Use WASD to move", -170, -150, -800);
-  text3D3 = new ClickableText("The internet as a visual medium", 1000, -150, -400);
-  text3D4 = new ClickableText("The internet as medium for self portraiture", 1000, -150, -400);
+  text3D3 = new ClickableText(
+    "The internet as a visual medium",
+    1000,
+    -150,
+    -400
+  );
+  text3D4 = new ClickableText(
+    "The internet as medium for self portraiture",
+    1000,
+    -150,
+    -400
+  );
   text3D5 = new ClickableText("The passive subject", 1000, -150, -400);
   text3D6 = new ClickableText("Describing identity", 1000, -150, -400);
   text3D7 = new ClickableText("Have Fun!", 1000, -150, -400);
-
 }
 
 function draw() {
   background(0);
-   push()
+  push();
   var p1 = screenPosition(0, 0, 0);
   var p2 = screenPosition(100, 100, 0);
-  let dx = (camZ - p1.z)/ 50
-  translate(mouseX - width/2 - p1.x * dx, mouseY - width/2 - p1.y, p1.z)
-  sphere(50)
-  console.log(h)
-  pop()
+  let dx = (camZ - p1.z) / 50;
+  translate(mouseX - width / 2 - p1.x * dx, mouseY - width / 2 - p1.y, p1.z);
+  sphere(50);
+  console.log(h);
+  pop();
   handleCameraMovement();
   drawGrid();
   drawAbstractForms();
   drawVerticalImages(currentAngle);
-  drawVerticalImages2(currentAngle2)
-  
+  drawVerticalImages2(currentAngle2);
+
   if (animateText) {
     // Calculate the new x-position for text3D3, text3D4, text3D5, text3D6, and text3D7
 
@@ -128,8 +128,8 @@ function draw() {
     text3D6.position.z = lerp(text3D6.position.z, -600, 0.1);
     text3D7.position.z = lerp(text3D7.position.z, -600, 0.1);
   }
-  
-   if (animateText2) {
+
+  if (animateText2) {
     // Calculate the new x-position for text3D3, text3D4, text3D5, text3D6, and text3D7
 
     text3D3.position.y = lerp(text3D3.position.y, -300, 0.1);
@@ -137,14 +137,14 @@ function draw() {
     text3D5.position.y = lerp(text3D5.position.y, -200, 0.1);
     text3D6.position.y = lerp(text3D6.position.y, -200, 0.1);
     text3D7.position.y = lerp(text3D7.position.y, -200, 0.1);
-     
+
     text3D3.position.z = lerp(text3D3.position.z, -1200, 0.1);
     text3D4.position.z = lerp(text3D4.position.z, -300, 0.1);
     text3D5.position.z = lerp(text3D5.position.z, -600, 0.1);
     text3D6.position.z = lerp(text3D6.position.z, -600, 0.1);
     text3D7.position.z = lerp(text3D7.position.z, -600, 0.1);
   }
-   if (animateText3) {
+  if (animateText3) {
     // Calculate the new x-position for text3D3, text3D4, text3D5, text3D6, and text3D7
 
     text3D3.position.y = lerp(text3D3.position.y, -300, 0.1);
@@ -152,15 +152,15 @@ function draw() {
     text3D5.position.y = lerp(text3D5.position.y, -300, 0.1);
     text3D6.position.y = lerp(text3D6.position.y, -200, 0.1);
     text3D7.position.y = lerp(text3D7.position.y, -200, 0.1);
-     
+
     text3D3.position.z = lerp(text3D3.position.z, -1200, 0.1);
     text3D4.position.z = lerp(text3D4.position.z, -1500, 0.1);
     text3D5.position.z = lerp(text3D5.position.z, -300, 0.1);
     text3D6.position.z = lerp(text3D6.position.z, -600, 0.1);
     text3D7.position.z = lerp(text3D7.position.z, -600, 0.1);
   }
-  
-     if (animateText4) {
+
+  if (animateText4) {
     // Calculate the new x-position for text3D3, text3D4, text3D5, text3D6, and text3D7
 
     text3D3.position.y = lerp(text3D3.position.y, -300, 0.1);
@@ -168,15 +168,15 @@ function draw() {
     text3D5.position.y = lerp(text3D5.position.y, -300, 0.1);
     text3D6.position.y = lerp(text3D6.position.y, -300, 0.1);
     text3D7.position.y = lerp(text3D7.position.y, -200, 0.1);
-     
+
     text3D3.position.z = lerp(text3D3.position.z, -1200, 0.1);
     text3D4.position.z = lerp(text3D4.position.z, -1500, 0.1);
     text3D5.position.z = lerp(text3D5.position.z, -1800, 0.1);
     text3D6.position.z = lerp(text3D6.position.z, -300, 0.1);
     text3D7.position.z = lerp(text3D7.position.z, -600, 0.1);
   }
-  
-       if (animateText5) {
+
+  if (animateText5) {
     // Calculate the new x-position for text3D3, text3D4, text3D5, text3D6, and text3D7
 
     text3D3.position.y = lerp(text3D3.position.y, -300, 0.1);
@@ -184,17 +184,17 @@ function draw() {
     text3D5.position.y = lerp(text3D5.position.y, -300, 0.1);
     text3D6.position.y = lerp(text3D6.position.y, -300, 0.1);
     text3D7.position.y = lerp(text3D7.position.y, -300, 0.1);
-     
+
     text3D3.position.z = lerp(text3D3.position.z, -1200, 0.1);
     text3D4.position.z = lerp(text3D4.position.z, -1500, 0.1);
     text3D5.position.z = lerp(text3D5.position.z, -1800, 0.1);
     text3D6.position.z = lerp(text3D6.position.z, -2400, 0.1);
     text3D7.position.z = lerp(text3D7.position.z, -300, 0.1);
   }
- 
+
   currentAngle = lerp(currentAngle, targetAngle, rotationSpeedf);
-   if (isCursorOverPlane()) {
-    cursor('pointer');
+  if (isCursorOverPlane()) {
+    cursor("pointer");
   } else {
     cursor();
   }
@@ -207,24 +207,29 @@ function draw() {
     text3D6.display2();
     text3D7.display2();
   }
-  
 }
 
 function handleCameraMovement() {
-
   // Move the camera to simulate player movement
   let currentSpeed = sprinting ? sprintSpeed : cameraSpeed;
 
   // Calculate the forward vector
-  let forward = createVector(lookAtX - camX, lookAtY - camY, lookAtZ - camZ).normalize().mult(currentSpeed);
+  let forward = createVector(lookAtX - camX, lookAtY - camY, lookAtZ - camZ)
+    .normalize()
+    .mult(currentSpeed);
 
   // Calculate the right vector
-  let right = forward.copy().cross(createVector(0, 1, 0)).normalize().mult(currentSpeed);
+  let right = forward
+    .copy()
+    .cross(createVector(0, 1, 0))
+    .normalize()
+    .mult(currentSpeed);
 
   // Calculate the up vector for bobbing
   let up = sin(frameCount * 100);
 
-  if (keyIsDown(87)) { // W key (forward)
+  if (keyIsDown(87)) {
+    // W key (forward)
     camX += forward.x;
     camY += bobAmplitude * sin(frameCount * bobSpeed);
     camZ += forward.z;
@@ -232,7 +237,8 @@ function handleCameraMovement() {
     lookAtZ += forward.z;
     camera.eye += bobAmplitude * sin(frameCount * bobSpeed);
   }
-  if (keyIsDown(83)) { // S key (backward)
+  if (keyIsDown(83)) {
+    // S key (backward)
     camX -= forward.x;
     camZ -= forward.z;
     camY += bobAmplitude * sin(frameCount * bobSpeed);
@@ -240,7 +246,8 @@ function handleCameraMovement() {
     lookAtZ -= forward.z;
     cam.eyeY += up.y;
   }
-  if (keyIsDown(65)) { // A key (left)
+  if (keyIsDown(65)) {
+    // A key (left)
     camX -= right.x;
     camZ -= right.z;
     camY += bobAmplitude * sin(frameCount * bobSpeed);
@@ -248,7 +255,8 @@ function handleCameraMovement() {
     lookAtZ -= right.z;
     cam.eyeY += up.y;
   }
-  if (keyIsDown(68)) { // D key (right)
+  if (keyIsDown(68)) {
+    // D key (right)
     camX += right.x;
     camZ += right.z;
     camY += bobAmplitude * sin(frameCount * bobSpeed);
@@ -256,7 +264,8 @@ function handleCameraMovement() {
     lookAtZ += right.z;
     cam.eyeY += up.y;
   }
-  if (keyIsDown(16)) { // Shift key (sprinting)
+  if (keyIsDown(16)) {
+    // Shift key (sprinting)
     sprinting = true;
   } else {
     sprinting = false;
@@ -267,25 +276,25 @@ function handleCameraMovement() {
 }
 
 function keyReleased() {
-  if (key === ' ') {
-    h = h + 1
-    if (h === 1){
-    animateText = !animateText;
+  if (key === " ") {
+    h = h + 1;
+    if (h === 1) {
+      animateText = !animateText;
     }
-    if (h === 2){
-    animateText2 = !animateText2;
+    if (h === 2) {
+      animateText2 = !animateText2;
     }
-    if (h === 3){
-    animateText3 = !animateText3;
+    if (h === 3) {
+      animateText3 = !animateText3;
     }
-    if (h === 4){
-    animateText4 = !animateText4;
+    if (h === 4) {
+      animateText4 = !animateText4;
     }
-    if (h === 5){
-    animateText5 = !animateText5;
+    if (h === 5) {
+      animateText5 = !animateText5;
     }
-    if (h === 6){
-    animateText6 = !animateText6;
+    if (h === 6) {
+      animateText6 = !animateText6;
     }
   }
 }
@@ -304,53 +313,46 @@ class ClickableText {
     this.textSize = 30;
     textFont(font);
   }
-  
-  
-  
-
 
   display() {
     push();
     translate(this.position);
-    rotateX(-HALF_PI)
-    rotateX(radians(90)); // Rotate text to face the camera
-    textSize(this.textSize);
-    fill(255);
-    text(this.text, 0, 0);
-    pop();
-  } 
-  
-  
-
-
-  display2() {
-    push();
-    translate(this.position.x, this.position.y, this.position.z);
-    rotateX(-HALF_PI)
+    rotateX(-HALF_PI);
     rotateX(radians(90)); // Rotate text to face the camera
     textSize(this.textSize);
     fill(255);
     text(this.text, 0, 0);
     pop();
   }
-  
 
+  display2() {
+    push();
+    translate(this.position.x, this.position.y, this.position.z);
+    rotateX(-HALF_PI);
+    rotateX(radians(90)); // Rotate text to face the camera
+    textSize(this.textSize);
+    fill(255);
+    text(this.text, 0, 0);
+    pop();
+  }
 
   contains(x, y) {
     // Check if the mouse coordinates are within the clickable text area
     let textX = width / 2 + this.position.x - textWidth(this.text) / 2;
     let textY = height / 2 + this.position.y - this.textSize / 2;
-    return x >= textX && x <= textX + textWidth(this.text) && y >= textY && y <= textY + this.textSize;
+    return (
+      x >= textX &&
+      x <= textX + textWidth(this.text) &&
+      y >= textY &&
+      y <= textY + this.textSize
+    );
   }
 }
-
 
 function mouseDragged() {
   // Calculate the change in mouse position
   let dx = mouseX - pmouseX;
   let dy = mouseY - pmouseY;
-  
-
 
   // Adjust the camera's look-at position based on mouse movement
   lookAtX += dx * 1; // Adjust the sensitivity as needed for horizontal movement
@@ -364,13 +366,12 @@ function mouseDragged() {
 
   // Prevent default behavior to avoid selecting text or other elements
   return false;
- 
 }
 
 function drawGrid() {
   push(); // Save the current transformation matrix
   rotateX(PI / 2);
-  
+
   // Draw the grid on the X-Z plane
   let maxRadius = 50 * gridSize;
   for (let x = -maxRadius; x < maxRadius; x += gridSize) {
@@ -381,13 +382,17 @@ function drawGrid() {
       rect(x, z, gridSize, gridSize);
     }
   }
-  
+
   pop(); // Restore the previous transformation matrix
 }
 
 function drawAbstractForms() {
   push();
-  translate(0, map(noise(noiseOffset + -3000 * 0.1), -2000, 1, -2000, -2000), map(noise(noiseOffset + -5000 * 0.1), -2000, 1, -3000, -3000)); // Position the abstract forms in the distance
+  translate(
+    0,
+    map(noise(noiseOffset + -3000 * 0.1), -2000, 1, -2000, -2000),
+    map(noise(noiseOffset + -5000 * 0.1), -2000, 1, -3000, -3000)
+  ); // Position the abstract forms in the distance
 
   // Rotate and animate the forms
   rotateY(rotationAngle);
@@ -395,8 +400,20 @@ function drawAbstractForms() {
 
   // Draw animated abstract forms
   for (let i = 0; i < 5; i++) {
-    let yOffset = map(noise(noiseOffset + i * 0.1), 0, 1, -formAmplitude, formAmplitude);
-    let xOffset = map(noise(noiseOffset + 100 + i * 0.1), 0, 1, -formAmplitude, formAmplitude);
+    let yOffset = map(
+      noise(noiseOffset + i * 0.1),
+      0,
+      1,
+      -formAmplitude,
+      formAmplitude
+    );
+    let xOffset = map(
+      noise(noiseOffset + 100 + i * 0.1),
+      0,
+      1,
+      -formAmplitude,
+      formAmplitude
+    );
     let sizeFactor = map(noise(noiseOffset + 200 + i * 0.1), 0, 1, 0.5, 1.5);
     let rotationX = map(noise(noiseOffset + 300 + i * 0.1), 0, 1, 0, TWO_PI);
     let rotationY = map(noise(noiseOffset + 400 + i * 0.1), 0, 1, 0, TWO_PI);
@@ -415,7 +432,7 @@ function drawAbstractForms() {
     rotateZ(rotationZ);
 
     noStroke(); // Set stroke color with interpolated alpha
-    fill(map(noise(noiseOffset + 220 * 0.1), 0, 1, 220, 0), alpha);   // Set fill color with interpolated alpha
+    fill(map(noise(noiseOffset + 220 * 0.1), 0, 1, 220, 0), alpha); // Set fill color with interpolated alpha
 
     let boxSize = formScale * sizeFactor;
     box(boxSize);
@@ -423,11 +440,13 @@ function drawAbstractForms() {
 
   noiseOffset += 0.01; // Increment the noise offset for the next frame
   pop();
-  
-  
-  
-   push();
-  translate(map(noise(noiseOffset + -5000 * 0.1), -2000, 1, -3000, -3000), map(noise(noiseOffset + 3000 * 0.1), 2000, 1, 2000, 2000), map(noise(noiseOffset + -5000 * 0.1), -2000, 1, -3000, -3000)); // Position the abstract forms in the distance
+
+  push();
+  translate(
+    map(noise(noiseOffset + -5000 * 0.1), -2000, 1, -3000, -3000),
+    map(noise(noiseOffset + 3000 * 0.1), 2000, 1, 2000, 2000),
+    map(noise(noiseOffset + -5000 * 0.1), -2000, 1, -3000, -3000)
+  ); // Position the abstract forms in the distance
 
   // Rotate and animate the forms
   rotateY(rotationAngle);
@@ -435,8 +454,20 @@ function drawAbstractForms() {
 
   // Draw animated abstract forms
   for (let i = 0; i < 5; i++) {
-    let yOffset = map(noise(noiseOffset + i * 0.2), 0, 1, -formAmplitude, formAmplitude);
-    let xOffset = map(noise(noiseOffset + 50000 + i * 0.1), 0, 5000, -formAmplitude, formAmplitude);
+    let yOffset = map(
+      noise(noiseOffset + i * 0.2),
+      0,
+      1,
+      -formAmplitude,
+      formAmplitude
+    );
+    let xOffset = map(
+      noise(noiseOffset + 50000 + i * 0.1),
+      0,
+      5000,
+      -formAmplitude,
+      formAmplitude
+    );
     let sizeFactor = map(noise(noiseOffset + 200 + i * 0.1), 0, 1, 0.5, 1.5);
     let rotationX = map(noise(noiseOffset + 300 + i * 0.1), 0, 1, 0, TWO_PI);
     let rotationY = map(noise(noiseOffset + 400 + i * 0.1), 0, 1, 0, TWO_PI);
@@ -455,7 +486,7 @@ function drawAbstractForms() {
     rotateZ(rotationZ);
 
     noStroke(); // Set stroke color with interpolated alpha
-    fill(map(noise(noiseOffset + 220 * 0.1), 0, 1, 220, 0), alpha);   // Set fill color with interpolated alpha
+    fill(map(noise(noiseOffset + 220 * 0.1), 0, 1, 220, 0), alpha); // Set fill color with interpolated alpha
 
     let boxSize = formScale * sizeFactor;
     sphere(map(noise(noiseOffset + -600 * 0.1), -600, 1, -1200, -1200));
@@ -464,7 +495,11 @@ function drawAbstractForms() {
   noiseOffset += 0.01; // Increment the noise offset for the next frame
   pop();
   push();
-  translate(4800, map(noise(noiseOffset + -3000 * 0.01), -5000, 1, -4000, -2000), map(noise(noiseOffset + -5000 * 0.01), 000, 1, 1000, -2000)); // Position the abstract forms in the distance
+  translate(
+    4800,
+    map(noise(noiseOffset + -3000 * 0.01), -5000, 1, -4000, -2000),
+    map(noise(noiseOffset + -5000 * 0.01), 000, 1, 1000, -2000)
+  ); // Position the abstract forms in the distance
 
   // Rotate and animate the forms
   rotateY(rotationAngle);
@@ -472,8 +507,20 @@ function drawAbstractForms() {
 
   // Draw animated abstract forms
   for (let i = 0; i < 5; i++) {
-    let yOffset = map(noise(noiseOffset + i * 0.1), 0, 1, -formAmplitude, formAmplitude);
-    let xOffset = map(noise(noiseOffset + 100 + i * 0.1), 0, 1, -formAmplitude, formAmplitude);
+    let yOffset = map(
+      noise(noiseOffset + i * 0.1),
+      0,
+      1,
+      -formAmplitude,
+      formAmplitude
+    );
+    let xOffset = map(
+      noise(noiseOffset + 100 + i * 0.1),
+      0,
+      1,
+      -formAmplitude,
+      formAmplitude
+    );
     let sizeFactor = map(noise(noiseOffset + 200 + i * 0.1), 0, 1, 0.5, 1.5);
     let rotationX = map(noise(noiseOffset + 300 + i * 0.01), 0, 1, 0, TWO_PI);
     let rotationY = map(noise(noiseOffset + 400 + i * 0.01), 0, 1, 0, TWO_PI);
@@ -492,7 +539,7 @@ function drawAbstractForms() {
     rotateZ(rotationZ);
 
     noStroke(); // Set stroke color with interpolated alpha
-    fill(map(noise(noiseOffset + 220 * 0.1), 0, 1, 220, 0), alpha);   // Set fill color with interpolated alpha
+    fill(map(noise(noiseOffset + 220 * 0.1), 0, 1, 220, 0), alpha); // Set fill color with interpolated alpha
 
     let boxSize = formScale * sizeFactor;
     cone(boxSize);
@@ -502,10 +549,9 @@ function drawAbstractForms() {
   pop();
 }
 
-
 function drawVerticalImages(angle) {
- push();
-  noStroke()
+  push();
+  noStroke();
   translate(300, -200, 0);
 
   // Apply the rotation
@@ -514,22 +560,22 @@ function drawVerticalImages(angle) {
   // Front plane with front texture
   beginShape();
   texture(frontTexture);
-  plane(frontTexture.width/10, frontTexture.height/10)
+  plane(frontTexture.width / 10, frontTexture.height / 10);
   endShape(CLOSE);
 
   // Back plane with back texture
   translate(0, 0, -1); // Move the back plane slightly behind the front plane
   beginShape();
   texture(backTexture);
-  plane(frontTexture.width/10, frontTexture.height/10)
+  plane(frontTexture.width / 10, frontTexture.height / 10);
   endShape(CLOSE);
 
   pop();
 }
 
 function drawVerticalImages2(angle) {
- push();
-  noStroke()
+  push();
+  noStroke();
   translate(300, -200, -200);
 
   // Apply the rotation
@@ -538,14 +584,14 @@ function drawVerticalImages2(angle) {
   // Front plane with front texture
   beginShape();
   texture(frontTexture);
-  plane(frontTexture.width/10, frontTexture.height/10)
+  plane(frontTexture.width / 10, frontTexture.height / 10);
   endShape(CLOSE);
 
   // Back plane with back texture
   translate(0, 0, -1); // Move the back plane slightly behind the front plane
   beginShape();
   texture(backTexture);
-  plane(frontTexture.width/10, frontTexture.height/10)
+  plane(frontTexture.width / 10, frontTexture.height / 10);
   endShape(CLOSE);
 
   pop();
@@ -572,8 +618,6 @@ function mouseClicked() {
   }
 }
 
-
-
 function isCursorOverPlane() {
   // Check if the mouse coordinates are within the plane's boundaries
   const halfWidth = frontTexture.width / 40; // Divide by 2
@@ -581,6 +625,10 @@ function isCursorOverPlane() {
   const planeX = 300;
   const planeY = -200;
 
-  return mouseX >= planeX - halfWidth && mouseX <= planeX + halfWidth &&
-    mouseY >= planeY - halfHeight && mouseY <= planeY + halfHeight;
+  return (
+    mouseX >= planeX - halfWidth &&
+    mouseX <= planeX + halfWidth &&
+    mouseY >= planeY - halfHeight &&
+    mouseY <= planeY + halfHeight
+  );
 }
